@@ -1,12 +1,14 @@
 class TodoItem {
-  constructor(arg) {
+  constructor(arg, parent) {
     this.content = arg;
+    this.parent = parent;
     this.pending = true;
     this.birth = timeStamp();
   }
 
   static retore(obj) {
     var _item = new TodoItem(obj.content);
+    _item.parent = obj.parent;
     _item.pending = obj.pending;
     _item.birth = obj.birth;
     return _item;

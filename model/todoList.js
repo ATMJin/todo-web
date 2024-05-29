@@ -29,6 +29,7 @@ class TodoList {
     for (var i = 0; i < this.list.length; i++){
       plainList.push({
         "content": this.list[i].content,
+        "parent": this.list[i].parent,
         "pending": this.list[i].pending,
         "birth": this.list[i].birth
       });

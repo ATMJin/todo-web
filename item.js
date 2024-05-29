@@ -45,7 +45,7 @@ function finishedDomItem(item) {
   domItem.appendChild(text);
 
   var timeStamp = document.createElement('span');
-  timeStamp.className='time-stamp';
+  timeStamp.className = 'time-stamp';
   timeStamp.innerHTML = "Created at " + item.birth;
   domItem.appendChild(timeStamp);
 
@@ -62,23 +62,28 @@ function finishedDomItem(item) {
 }
 
 function getCheckboxListener(item) {
-  return function(){
-    setTimeout(function(){
+  return function () {
+    setTimeout(function () {
       item.finish();
       //remove from todo list in dom
       item.domNode.parentNode.removeChild(item.domNode);
       //add to finished list in dom
       var domItem = finishedDomItem(item);
       document.getElementById("finished-list-content").appendChild(domItem);
-      
+
     }, 500);
   }
 }
 
 function getDeleteBtnListner(item) {
-  return function(){
+  return function () {
     item.remove();
     //remove from finished list
     item.domNode.parentNode.removeChild(item.domNode);
+
+    const storageList = JSON.parse(localStorage.getItem(item.parent) || '[]');
+    const index = storageList.findIndex((i) => i.content === item.content);
+    storageList.splice(index, 1);
+    localStorage.setItem(item.parent, JSON.stringify(storageList));
   }
 }
